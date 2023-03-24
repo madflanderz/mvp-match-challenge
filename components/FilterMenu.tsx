@@ -65,6 +65,7 @@ export const FilterMenu: React.FC<Props> = ({ gateways, projects }) => {
           <Stack direction="row" spacing={2} alignItems="center">
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <Select
+                size="small"
                 value={projectId}
                 onChange={(event) => setProjectId(event.target.value)}
                 displayEmpty
@@ -82,6 +83,7 @@ export const FilterMenu: React.FC<Props> = ({ gateways, projects }) => {
 
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <Select
+                size="small"
                 value={gatewayId}
                 onChange={(event) => setGatewayId(event.target.value)}
                 displayEmpty
@@ -98,18 +100,35 @@ export const FilterMenu: React.FC<Props> = ({ gateways, projects }) => {
             </FormControl>
 
             <DatePicker
-              label="From date"
+              // label="From date"
+
               value={from}
               onChange={(newValue) => setFrom(newValue)}
+              sx={{
+                "& .MuiInputBase-input": {
+                  // padding: "8px 14px !important",
+                  // paddingRight: 0,
+                  paddingTop: "8px",
+                  paddingBottom: "8px",
+                  // color: "green",
+                },
+              }}
             />
             <DatePicker
-              label="To date"
+              // label="To date"
               value={to}
               onChange={(newValue) => setTo(newValue)}
+              sx={{
+                "& .MuiInputBase-input": {
+                  padding: "8px 14px !important",
+                  // color: "green",
+                },
+              }}
             />
 
             <Button
               variant="contained"
+              size="large"
               sx={{ whiteSpace: "nowrap", minWidth: "auto" }}
               onClick={() => handleGenerateReport()}
             >
