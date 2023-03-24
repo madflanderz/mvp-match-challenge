@@ -1,0 +1,103 @@
+import { useEffect, useMemo } from "react";
+import { useQuery } from "react-query";
+import useSWR from "swr";
+import { Gateway } from "types/Gateway";
+import { Project } from "types/Project";
+import { ProjectReport } from "types/ProjectReport";
+import { Report } from "types/Report";
+
+const fetcher = (input: RequestInfo | URL, init?: RequestInit | undefined) =>
+  fetch(input, init).then((res) => res.json());
+
+type ReportVariables = {
+  projectId: string;
+  gatewayId: string;
+  from: string;
+  to: string;
+};
+
+type HookProps = {
+  projects: Project[];
+  gateways: Gateway[];
+  reportVariables: ReportVariables;
+};
+
+const fetchReport = (variables: ReportVariables) => async () => {
+  const res = await fetch("http://178.63.13.157:8090/mock-api/api/report", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(variables),
+  });
+  const data = await res.json();
+
+  console.log("yeahhhh", data);
+  return data;
+};
+
+export const useGetReport = ({
+  gateways,
+  projects,
+  reportVariables,
+}: HookProps) => {
+  const { projectId, gatewayId, from, to } = reportVariables;
+
+  const { data, error, isLoading, refetch } = useQuery<{ data: Report[] }>(
+    ["reports", /*projectId, gatewayId,*/ from, to],
+    fetchReport(reportVariables),
+    {
+      enabled: false,
+    }
+  );
+
+  const projectReports: ProjectReport[] = useMemo(() => {
+    if (data?.data) {
+      const projectReports = projects
+        .filter((project) => {
+          return data.data.some(
+            (report) => report.projectId === project.projectId
+          );
+        })
+        .map((project) => {
+          const payments = data.data.filter(
+            (report) => report.projectId === project.projectId
+          );
+
+          const paymentsWithGateways = payments.map((report) => {
+            const gateway = gateways.find(
+              (gateway) => gateway.gatewayId === report.gatewayId
+            );
+
+            return {
+              ...report,
+              gateway,
+            };
+          });
+
+          const total = paymentsWithGateways
+            .reduce((acc, current) => {
+              return acc + current.amount;
+            }, 0)
+            .toFixed(2);
+
+          return {
+            ...project,
+            total,
+            payments: paymentsWithGateways,
+          };
+        });
+      console.log(projectReports);
+      return projectReports;
+    }
+    return [];
+  }, [data]);
+
+  return {
+    projectReports,
+    error,
+    isLoading,
+    refetch,
+  };
+};
