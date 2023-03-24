@@ -30,7 +30,14 @@ export const ReportGenerator: React.FC<Props> = ({ gateways, projects }) => {
   const [projectId, setProjectId] = useState("");
   const [gatewayId, setGatewayId] = useState("");
 
-  const { projectReports, refetch, error, isLoading, gatewayPercentages } = useGetReport({
+  const {
+    projectReports,
+    refetch,
+    error,
+    isLoading,
+    gatewayPercentages,
+    projectPercentages,
+  } = useGetReport({
     reportVariables: {
       from: from?.format("YYYY-MM-DD") || "",
       to: to?.format("YYYY-MM-DD") || "",
@@ -73,7 +80,7 @@ export const ReportGenerator: React.FC<Props> = ({ gateways, projects }) => {
         projects={projectReports}
         gatewayName={gatewayName}
         projectName={projectName}
-        gatewayPercentages={gatewayPercentages}
+        percentages={projectId ? gatewayPercentages : projectPercentages}
       />
     </Box>
   );

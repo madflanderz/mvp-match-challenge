@@ -64,7 +64,12 @@ export const PieChartDisplay: FC<Props> = ({ items }) => {
         borderRadius={3}
       >
         {items.map((item, index) => (
-          <Stack direction="row" spacing={1} alignItems="center">
+          <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            key={item.name}
+          >
             <Box
               width={15}
               height={15}

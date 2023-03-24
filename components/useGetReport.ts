@@ -19,8 +19,6 @@ type HookProps = {
 };
 
 export const fetchReport = (variables: ReportVariables) => async () => {
-  console.log("fetchReport###########################################");
-
   const res = await fetch("http://178.63.13.157:8090/mock-api/api/report", {
     method: "POST",
     headers: {
@@ -31,7 +29,6 @@ export const fetchReport = (variables: ReportVariables) => async () => {
   });
   const data = await res.json();
 
-  console.log("yeahhhh", data);
   return data;
 };
 
@@ -40,7 +37,7 @@ export const useGetReport = ({
   projects,
   reportVariables,
 }: HookProps) => {
-  const { projectId, gatewayId, from, to } = reportVariables;
+  const { from, to } = reportVariables;
 
   const { data, error, isLoading, refetch } = useQuery<{ data: Report[] }>(
     ["reports", /*projectId, gatewayId,*/ from, to],
@@ -94,6 +91,14 @@ export const useGetReport = ({
     return [];
   }, [data]);
 
+  const total = useMemo(() => {
+    return projectReports
+      .reduce((acc, current) => {
+        return acc + parseFloat(current.total);
+      }, 0)
+      .toFixed(2);
+  }, [projectReports]);
+
   const gatewayPercentages = useMemo(() => {
     const gatewayGroup: Record<string, number> = {};
 
@@ -102,18 +107,14 @@ export const useGetReport = ({
     }
     const report = projectReports[0];
 
-    projectReports.forEach((report) => {
-      report.payments.forEach((payment) => {
-        payment.gatewayId;
-        if (gatewayGroup[payment.gatewayId]) {
-          gatewayGroup[payment.gatewayId] += payment.amount;
-        } else {
-          gatewayGroup[payment.gatewayId] = payment.amount;
-        }
-      });
+    report.payments.forEach((payment) => {
+      payment.gatewayId;
+      if (gatewayGroup[payment.gatewayId]) {
+        gatewayGroup[payment.gatewayId] += payment.amount;
+      } else {
+        gatewayGroup[payment.gatewayId] = payment.amount;
+      }
     });
-
-    console.log("gatewayGroup", gatewayGroup);
 
     const percentages = Object.keys(gatewayGroup).map((key) => {
       return {
@@ -123,7 +124,29 @@ export const useGetReport = ({
       };
     });
 
-    console.log("percentages", percentages);
+    return percentages;
+  }, [projectReports]);
+
+  const projectPercentages = useMemo(() => {
+    const group: Record<string, number> = {};
+
+    projectReports.forEach((report) => {
+      report.payments.forEach((payment) => {
+        if (group[payment.projectId]) {
+          group[payment.projectId] += payment.amount;
+        } else {
+          group[payment.projectId] = payment.amount;
+        }
+      });
+    });
+
+    const percentages = Object.keys(group).map((key) => {
+      return {
+        name: projects.find((project) => project.projectId === key)?.name,
+        id: key,
+        percentage: group[key] / parseFloat(total),
+      };
+    });
 
     return percentages;
   }, [projectReports]);
@@ -131,8 +154,10 @@ export const useGetReport = ({
   return {
     projectReports,
     gatewayPercentages,
+    projectPercentages,
     error,
     isLoading,
     refetch,
+    total,
   };
 };

@@ -18,7 +18,7 @@ type Props = {
   projects: ProjectReport[];
   projectName?: string;
   gatewayName?: string;
-  gatewayPercentages: {
+  percentages: {
     name: string | undefined;
     id: string;
     percentage: number;
@@ -29,12 +29,14 @@ export const Reports: React.FC<Props> = ({
   projects,
   gatewayName,
   projectName,
-  gatewayPercentages,
+  percentages,
 }) => {
   const [expanded, setExpanded] = React.useState<string | false>(false);
 
   useEffect(() => {
-    setExpanded(projects[0].projectId);
+    if (projects?.length) {
+      setExpanded(projects[0].projectId);
+    }
   }, [projects]);
 
   const reportTotal = projects
@@ -120,7 +122,7 @@ export const Reports: React.FC<Props> = ({
 
       {isSingleView && (
         <Grid item xs={5}>
-          <PieChartDisplay items={gatewayPercentages} />
+          <PieChartDisplay items={percentages} />
 
           <Box bgcolor="#F1FAFE" p={3} borderRadius={3} mt={4}>
             <Typography variant="h6">
