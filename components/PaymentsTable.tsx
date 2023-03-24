@@ -28,16 +28,21 @@ const rows = [
 
 type Props = {
   projectReport: ProjectReport;
+  hideGateway?: boolean;
 };
 
-export const PaymentsTable: React.FC<Props> = ({ projectReport }) => {
+export const PaymentsTable: React.FC<Props> = ({
+  projectReport,
+  hideGateway,
+}) => {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>Date</TableCell>
-            <TableCell align="center">Gateway</TableCell>
+            {!hideGateway && <TableCell align="center">Gateway</TableCell>}
+
             <TableCell align="center">Transaction ID</TableCell>
             <TableCell align="right">Amount</TableCell>
           </TableRow>
@@ -51,7 +56,9 @@ export const PaymentsTable: React.FC<Props> = ({ projectReport }) => {
               <TableCell component="th" scope="row">
                 {payment.created}
               </TableCell>
-              <TableCell align="center">{payment.gateway?.name}</TableCell>
+              {!hideGateway && (
+                <TableCell align="center">{payment.gateway?.name}</TableCell>
+              )}
               <TableCell align="center">{payment.paymentId}</TableCell>
               <TableCell align="right">{payment.amount} USD</TableCell>
             </TableRow>

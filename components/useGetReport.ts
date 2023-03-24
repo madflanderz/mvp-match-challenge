@@ -94,8 +94,43 @@ export const useGetReport = ({
     return [];
   }, [data]);
 
+  const gatewayPercentages = useMemo(() => {
+    const gatewayGroup: Record<string, number> = {};
+
+    if (projectReports.length !== 1) {
+      return [];
+    }
+    const report = projectReports[0];
+
+    projectReports.forEach((report) => {
+      report.payments.forEach((payment) => {
+        payment.gatewayId;
+        if (gatewayGroup[payment.gatewayId]) {
+          gatewayGroup[payment.gatewayId] += payment.amount;
+        } else {
+          gatewayGroup[payment.gatewayId] = payment.amount;
+        }
+      });
+    });
+
+    console.log("gatewayGroup", gatewayGroup);
+
+    const percentages = Object.keys(gatewayGroup).map((key) => {
+      return {
+        name: gateways.find((gateway) => gateway.gatewayId === key)?.name,
+        id: key,
+        percentage: gatewayGroup[key] / parseFloat(report.total),
+      };
+    });
+
+    console.log("percentages", percentages);
+
+    return percentages;
+  }, [projectReports]);
+
   return {
     projectReports,
+    gatewayPercentages,
     error,
     isLoading,
     refetch,
