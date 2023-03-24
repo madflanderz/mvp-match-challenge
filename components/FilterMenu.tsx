@@ -64,7 +64,7 @@ export const FilterMenu: React.FC<Props> = ({
               displayEmpty
               inputProps={{ "aria-label": "Select project" }}
             >
-              <MenuItem value="">All projects</MenuItem>
+              <MenuItem value="">Select projects</MenuItem>
               {projects.map((project) => (
                 <MenuItem key={project.projectId} value={project.projectId}>
                   {project.name}
@@ -82,7 +82,7 @@ export const FilterMenu: React.FC<Props> = ({
               displayEmpty
               inputProps={{ "aria-label": "Select Gateway" }}
             >
-              <MenuItem value="">All gateways</MenuItem>
+              <MenuItem value="">Select gateways</MenuItem>
               {gateways.map((gateway) => (
                 <MenuItem key={gateway.gatewayId} value={gateway.gatewayId}>
                   {gateway.name}
@@ -98,6 +98,7 @@ export const FilterMenu: React.FC<Props> = ({
             value={from}
             onChange={(newValue) => onFromChange(newValue)}
             sx={{
+              maxWidth: 180,
               "& .MuiInputBase-input": {
                 // padding: "8px 14px !important",
                 // paddingRight: 0,
@@ -112,6 +113,7 @@ export const FilterMenu: React.FC<Props> = ({
             value={to}
             onChange={(newValue) => onToChange(newValue)}
             sx={{
+              maxWidth: 180,
               "& .MuiInputBase-input": {
                 padding: "8px 14px !important",
                 // color: "green",

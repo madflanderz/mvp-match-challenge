@@ -29,9 +29,9 @@ const Home: NextPage<Props> = (props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Grid
-        container
-        spacing={2}
+      <Stack
+        direction="row"
+        spacing={4}
         alignItems="center"
         py={2}
         px={4}
@@ -39,34 +39,36 @@ const Home: NextPage<Props> = (props) => {
         borderBottom={2}
         borderColor="#F3F6F9"
       >
-        <Grid item xs={1}>
-          <Image src="/icons/b.svg" alt="logo" width={27} height={40} />
-        </Grid>
-        <Grid item xs={1}>
-          <Image src="/icons/menu.svg" alt="logo" width={31} height={27} />
-        </Grid>
-        <Grid item xs={10} display="flex" justifyContent="flex-end">
-          <Stack direction="row" spacing={2} alignItems="center">
-            <Box
-              width={43}
-              height={43}
-              bgcolor="#F6CA65"
-              borderRadius={2}
-              display="flex"
-              alignItems={"center"}
-              justifyContent={"center"}
-            >
-              <Typography variant="h5" color="white">
-                JD
-              </Typography>
-            </Box>
-            <Typography variant="h6">John Doe</Typography>
-          </Stack>
-        </Grid>
-      </Grid>
+        <Image src="/icons/b.svg" alt="logo" width={27} height={40} />
+
+        <Image src="/icons/menu.svg" alt="logo" width={31} height={27} />
+
+        <Stack
+          direction="row"
+          spacing={2}
+          alignItems="center"
+          flex={1}
+          justifyContent="flex-end"
+        >
+          <Box
+            width={43}
+            height={43}
+            bgcolor="#F6CA65"
+            borderRadius={2}
+            display="flex"
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <Typography variant="h5" color="white">
+              JD
+            </Typography>
+          </Box>
+          <Typography variant="h6">John Doe</Typography>
+        </Stack>
+      </Stack>
 
       <Stack direction="row">
-        <Stack spacing={2} alignItems="center" py={2} px={4}>
+        <Stack spacing={2} alignItems="center" py={4} px={4}>
           <Image
             src="/icons/menu_item_1.svg"
             alt="logo"
@@ -103,6 +105,7 @@ const Home: NextPage<Props> = (props) => {
           display="flex"
           flexDirection="column"
           justifyContent="flex-end"
+          pr={4}
         >
           <ReportGenerator
             projects={props.projects}
