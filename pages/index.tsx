@@ -11,6 +11,8 @@ import { FC } from "react";
 import { NextPage } from "next";
 import { Project } from "types/Project";
 import { Gateway } from "types/Gateway";
+import { ReportGenerator } from "@/components/ReportGenerator";
+import { Footer } from "@/components/Footer";
 
 interface Props {
   projects: Project[];
@@ -97,16 +99,11 @@ const Home: NextPage<Props> = (props) => {
           />
         </Stack>
         <Box>
-          <FilterMenu projects={props.projects} gateways={props.gateways} />
-          <Box px={7} mb={4}>
-            <Link href="/projects" underline="none" variant="subtitle2">
-              Terms & Conditions
-            </Link>{" "}
-            |{" "}
-            <Link href="/projects" underline="none" variant="subtitle2">
-              Privacy policy
-            </Link>
-          </Box>
+          <ReportGenerator
+            projects={props.projects}
+            gateways={props.gateways}
+          />
+          <Footer />
         </Box>
       </Stack>
     </div>

@@ -1,25 +1,8 @@
-import { render, screen, fireEvent, getByText } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import Home from "@/pages/index";
 import { projects } from "./mocks/projects";
 import { gateways } from "./mocks/gateways";
 import { AppProvider } from "@/components/AppProvider";
-
-// import { fetchReport } from "../components/useGetReport";
-// import { report } from "./mocks/report";
-
-// jest.mock("../components/useGetReport", () => {
-//   const originalModule = jest.requireActual("../components/useGetReport");
-
-//   //Mock the default export and named export 'foo'
-//   return {
-//     __esModule: true,
-//     ...originalModule,
-//     fetchReport: jest.fn(() => {
-//       console.log("AAAAHHHHHHH !!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-//       return Promise.resolve(report);
-//     }),
-//   };
-// });
 
 describe("Home", () => {
   it("render test, menu and shows no reports", async () => {
