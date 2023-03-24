@@ -98,7 +98,12 @@ const Home: NextPage<Props> = (props) => {
             height={40}
           />
         </Stack>
-        <Box>
+        <Box
+          flex={1}
+          display="flex"
+          flexDirection="column"
+          justifyContent="flex-end"
+        >
           <ReportGenerator
             projects={props.projects}
             gateways={props.gateways}

@@ -58,15 +58,21 @@ export const Reports: React.FC<Props> = ({
   if (!projects.length) {
     return (
       <Container maxWidth="sm">
-        <Stack spacing={2} alignItems="center" py={2} px={4}>
-          <Typography variant="h6" gutterBottom>
-            No reports
-          </Typography>
-          <Typography variant="body2">
-            Currently you have no data for the reports to be generated. Once you
-            start generating traffic through the Balance application the reports
-            will be shown.
-          </Typography>
+        <Stack spacing={6} alignItems="center" py={2} px={4}>
+          <Box textAlign="center" maxWidth={420}>
+            <Typography variant="h5" fontWeight="bold">
+              No reports
+            </Typography>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              fontWeight="bold"
+            >
+              Currently you have no data for the reports to be generated. Once
+              you start generating traffic through the Balance application the
+              reports will be shown.
+            </Typography>
+          </Box>
           <Image
             src="/icons/no_results.svg"
             alt="no results"

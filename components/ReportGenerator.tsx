@@ -61,7 +61,14 @@ export const ReportGenerator: React.FC<Props> = ({ gateways, projects }) => {
   };
 
   return (
-    <Box flex={1} px={7} mb={4}>
+    <Box
+      flex={1}
+      px={7}
+      mb={4}
+      justifyContent="flex-end"
+      // bgcolor="green"
+      minHeight="80vh"
+    >
       <FilterMenu
         projects={projects}
         gateways={gateways}

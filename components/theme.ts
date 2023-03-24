@@ -15,6 +15,9 @@ export const theme = createTheme({
     secondary: {
       main: colors.green,
     },
+    text: {
+      secondary: "#7E8299",
+    },
   },
   components: {
     // Name of the component

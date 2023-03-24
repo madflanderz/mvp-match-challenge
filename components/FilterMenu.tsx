@@ -47,12 +47,14 @@ export const FilterMenu: React.FC<Props> = ({
   return (
     <Grid container spacing={2} py={4}>
       <Grid item xs={4}>
-        <Typography variant="h6">Reports</Typography>
-        <Typography variant="body1">
+        <Typography variant="h5" fontWeight="bold">
+          Reports
+        </Typography>
+        <Typography variant="body1" color="text.secondary" fontWeight="bold">
           Easily generate a report of your transactions
         </Typography>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={8} justifyContent="flex-end" display="flex">
         <Stack direction="row" spacing={2} alignItems="center">
           <FormControl sx={{ m: 1, minWidth: 120 }}>
             <Select
