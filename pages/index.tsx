@@ -18,7 +18,7 @@ interface Props {
 }
 
 const Home: NextPage<Props> = (props) => {
-  console.log(props);
+  // console.log(props);
 
   return (
     <div>
@@ -116,11 +116,11 @@ const Home: NextPage<Props> = (props) => {
 Home.getInitialProps = async ({ req }) => {
   const res = await fetch(process.env.API_PATH + "projects");
   const json = await res.json();
-  // console.log(json);
+  console.log(json);
 
   const resGateways = await fetch(process.env.API_PATH + "gateways");
   const jsonGateways = await resGateways.json();
-  // console.log(jsonGateways);
+  console.log(jsonGateways);
 
   return { projects: json.data, gateways: jsonGateways.data };
 };

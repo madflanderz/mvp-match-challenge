@@ -1,13 +1,9 @@
 import { useEffect, useMemo } from "react";
 import { useQuery } from "react-query";
-import useSWR from "swr";
 import { Gateway } from "types/Gateway";
 import { Project } from "types/Project";
 import { ProjectReport } from "types/ProjectReport";
 import { Report } from "types/Report";
-
-const fetcher = (input: RequestInfo | URL, init?: RequestInit | undefined) =>
-  fetch(input, init).then((res) => res.json());
 
 type ReportVariables = {
   projectId: string;
@@ -22,7 +18,9 @@ type HookProps = {
   reportVariables: ReportVariables;
 };
 
-const fetchReport = (variables: ReportVariables) => async () => {
+export const fetchReport = (variables: ReportVariables) => async () => {
+  console.log("fetchReport###########################################");
+
   const res = await fetch("http://178.63.13.157:8090/mock-api/api/report", {
     method: "POST",
     headers: {
@@ -51,6 +49,8 @@ export const useGetReport = ({
       enabled: false,
     }
   );
+
+  console.log({ data, error, isLoading, reportVariables });
 
   const projectReports: ProjectReport[] = useMemo(() => {
     if (data?.data) {
