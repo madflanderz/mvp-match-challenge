@@ -1,12 +1,9 @@
-const gateway = {
-  gatewayId: "i6ssp",
-  userIds: ["sdf"],
-  name: "Gateway 1",
-  type: "Stripe",
-  apiKey: "sk_test_6eC49HqLyjWDarjtT1zdp7dc",
-  secondaryApiKey: "",
-  description:
-    "Sit amet luctus venenatis lectus magna fringilla urna porttitor.",
+export type Gateway = {
+  gatewayId: string;
+  userIds: string[];
+  name: string;
+  type: string;
+  apiKey: string;
+  secondaryApiKey: string;
+  description: string;
 };
-
-export type Gateway = typeof gateway;

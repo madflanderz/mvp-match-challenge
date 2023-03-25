@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useQuery } from "react-query";
 import { Gateway } from "types/Gateway";
 import { Project } from "types/Project";
@@ -18,8 +18,11 @@ type HookProps = {
   reportVariables: ReportVariables;
 };
 
+const path =
+  process.env.NEXT_PUBLIC_API_PATH || "http://178.63.13.157:8090/mock-api/api/";
+
 export const fetchReport = (variables: ReportVariables) => async () => {
-  const res = await fetch("http://178.63.13.157:8090/mock-api/api/report", {
+  const res = await fetch(path + "report", {
     method: "POST",
     headers: {
       Accept: "application/json",
