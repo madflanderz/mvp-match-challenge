@@ -22,7 +22,8 @@ const path =
   process.env.NEXT_PUBLIC_API_PATH || "http://178.63.13.157:8090/mock-api/api/";
 
 export const fetchReport = (variables: ReportVariables) => async () => {
-  const res = await fetch(path + "report", {
+  // const res = await fetch(path + "report", {
+  const res = await fetch("/api/report", {
     method: "POST",
     headers: {
       Accept: "application/json",
